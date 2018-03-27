@@ -54,7 +54,8 @@ if(isset($_GET['filter'])){
   <table>
     <tr><th>Sélectionner</th><th>Nom</th><th>Vélos</th><th>Places Libres</th></tr>
     <?php
-    foreach ($data as $key => $station){
+  foreach ($data as $key => $station){
+    if ( ! $filter || isset($_GET[$key])){
       echo
       '<tr>
         <td><input type="checkbox" name="',$key,'"/></td>
@@ -65,6 +66,7 @@ if(isset($_GET['filter'])){
         <td>', $station['ABS'], '</td>
       </tr>';
     }
+  }
     ?>
   </table>
   <?php if ($filter) { ?>
