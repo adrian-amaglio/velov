@@ -2,15 +2,14 @@
 /*
  * Page displays in french because it will be mostly used by french. Feel free to add language system.
  * TODO Cache the humongous API data
+ * TODO Sort the stations
 */
 
-/* Form submit if a filter is active or not */
+/* Form submit values if a filter is active or not */
 $SEND_BUTTON = [
   true  => [ 'value' => '',     'text' => 'Tout afficher'],
   false => [ 'value' => 'true', 'text' => 'Afficher la sélection'],
 ];
-
-
 
 /* Fetching velov API in an associative array. This form is easier to use as keys are ids */
 $data =
@@ -35,7 +34,7 @@ if(isset($_GET['filter'])){
   if(htmlentities($_GET['filter']))
     $filter = true;
   else
-    ;$filter = false;
+    $filter = false;
 }else
   $filter = false;
 ?>
@@ -83,6 +82,10 @@ if(isset($_GET['filter'])){
 <p>
   <h4>Pourquoi ces couleurs ?</h4>
   Le <span class="success">vert</span> est réservé aux stations actives, le <span class="danger">rouge</span> est pour celles inutilisables.
+</p>
+<p>
+  <h4>C’est tout dans le désordre !</h4>
+  Oui.
 </p>
 </body>
 </html>
