@@ -14,6 +14,14 @@ file_get_contents(
   ),
   true
 );
+
+if(isset($_GET['filter'])){
+  if(htmlentities($_GET['filter']))
+    $filter = true;
+  else
+    $filter = false;
+}else
+  $filter = false;
 ?>
 
 <!DOCTYPE html>
@@ -35,13 +43,35 @@ file_get_contents(
   </style>
 </head>
 <body>
-<table>
-<tr><th>Nom</th><th>Vélos</th><th>Places Libres</th></tr>
-<?php
-foreach ($data as $station){
-  echo '<tr><td class="', ($station['open'] == 1 || $station['obsolete'] == 0 ? 'success' : 'danger' ) ,'" >',$station['name'], '</td><td>',$station['AB'], '</td><td>', $station['ABS'], '</td></tr>';
-}
-?>
-</table>
+<form action="" method="get">
+  <?php if ($filter) { ?>
+    <input type="hidden" name="filter" value="" />
+    <input type="submit" value="Tout afficher" />
+  <?php } else { ?>
+    <input type="hidden" name="filter" value="true" />
+    <input type="submit" value="Afficher uniquement la séléction" />
+  <?php } ?>
+  <table>
+    <tr><th>Sélectionner</th><th>Nom</th><th>Vélos</th><th>Places Libres</th></tr>
+    <?php
+    foreach ($data as $key => $station){
+      echo
+      '<tr>
+        <td><input type="checkbox" name="',$key,'"/></td>
+        <td class="', ($station['open'] == 1 && $station['obsolete'] == 0 ? 'success' : 'danger' ) ,'" >'
+          ,$station['name'],
+        '</td>
+        <td>',$station['AB'], '</td>
+        <td>', $station['ABS'], '</td>
+      </tr>';
+    }
+    ?>
+  </table>
+  <?php if ($filter) { ?>
+    <input type="submit" value="Tout afficher" />
+  <?php } else { ?>
+    <input type="submit" value="Afficher uniquement la séléction" />
+  <?php } ?>
+</form>
 </body>
 </html>
