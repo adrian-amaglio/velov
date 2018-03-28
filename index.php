@@ -77,7 +77,7 @@ if(isset($_GET['filter'])){
 </p>
 <p>
   <h4>Pourquoi cette page est elle lente ?</h4>
-  Parce qu’il faut télécharger toutes les données relatives aux stations vélov à chaque chargement ! N’hésitez pas à améliorer cette page sur <a href="http://github.com/adrianamaglio/velov">Github</a>
+  Parce qu’il faut télécharger toutes les données relatives aux stations vélov à chaque chargement ! N’hésitez pas à améliorer cette page sur <a href="http://github.com/adrian-amaglio/velov">Github</a>
 </p>
 <p>
   <h4>Pourquoi ces couleurs ?</h4>
