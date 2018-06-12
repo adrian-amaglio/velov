@@ -14,19 +14,12 @@ $SEND_BUTTON = [
 /* Fetching velov API in an associative array. This form is easier to use as keys are ids */
 $data =
   json_decode(
-    file_get_contents(
-      'https://velov.grandlyon.com/fr/les-stations.html?type=777&tx_glstationsvelov_pi1%5Baction%5D=listOfVelovWidthInfoStation&tx_glstationsvelov_pi1%5Bcontroller%5D=StationVelov',
-      false,
-      stream_context_create([
-        'http' => [
-          'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-          'method'  => 'POST',
-          'content' => http_build_query([])
-        ]
-      ])
+    file_get_contents('https://api.jcdecaux.com/vls/v1/stations?apiKey=frifk0jbxfefqqniqez09tw4jvk37wyf823b5j1i&contract=lyon',
+      false
     ),
     true
   );
+
 
 /* Check if a filter is enabled */
 
@@ -54,16 +47,16 @@ if(isset($_GET['filter'])){
   <tr><th>Sélectionner</th><th>Nom</th><th>Vélos</th><th>Places Libres</th></tr>
     <?php
   foreach ($data as $key => $station){
-    if ( ! $filter || isset($_GET[$key])){
+    if ( ! $filter || isset($_GET[$station['number']])){
       echo '<tr>
         <td>
-          <input type="checkbox" name="',$key,'" ',(isset($_GET[$key]) ? 'checked="checked"' : ''),' />
+          <input type="checkbox" name="',$station['number'],'" ',(isset($_GET[$station['number']]) ? 'checked="checked"' : ''),' />
         </td>
-      <td class="', ($station['open'] == 1 && $station['obsolete'] == 0 ? 'success' : 'danger' ) ,'" >'
+      <td class="', ($station['status'] == 'OPEN' ? 'success' : 'danger' ) ,'" >'
           ,$station['name'],
         '</td>
-        <td>',$station['AB'], '</td>
-        <td>', $station['ABS'], '</td>
+        <td>',$station['available_bikes'], '</td>
+        <td>', $station['available_bike_stands'], '</td>
       </tr>';
     }
   }

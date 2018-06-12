@@ -3,8 +3,8 @@ html{
   color:white;
 }
 .success{
-  color:green;
+  color: #18f218;
 }
 .danger{
-  color: red;
+  color: #fb2d2d;
 }
